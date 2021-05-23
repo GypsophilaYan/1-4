@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.second.dao.KcMapper">
+  <resultMap id="BaseResultMap" type="com.example.second.entity.Kc">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="kcNumber" jdbcType="VARCHAR" property="kcnumber" />
+    <result column="kcName" jdbcType="VARCHAR" property="kcname" />
+    <result column="kcType" jdbcType="VARCHAR" property="kctype" />
+    <result column="kcCollege" jdbcType="VARCHAR" property="kccollege" />
+    <result column="kcRoom" jdbcType="VARCHAR" property="kcroom" />
+    <result column="kcTimes" jdbcType="VARCHAR" property="kctimes" />
+    <result column="kcDuration" jdbcType="VARCHAR" property="kcduration" />
+    <result column="kcIntroduce" jdbcType="VARCHAR" property="kcintroduce" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, kcNumber, kcName, kcType, kcCollege, kcRoom, kcTimes, kcDuration, kcIntroduce
+  </sql>
+  <select id="selectByExample" parameterType="com.example.second.entity.KcExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from kc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kc
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from kc
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.second.entity.KcExample">
+    delete from kc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.second.entity.Kc">
+    insert into kc (id, kcNumber, kcName, 
+      kcType, kcCollege, kcRoom, 
+      kcTimes, kcDuration, kcIntroduce
+      )
+    values (#{id,jdbcType=INTEGER}, #{kcnumber,jdbcType=VARCHAR}, #{kcname,jdbcType=VARCHAR}, 
+      #{kctype,jdbcType=VARCHAR}, #{kccollege,jdbcType=VARCHAR}, #{kcroom,jdbcType=VARCHAR}, 
+      #{kctimes,jdbcType=VARCHAR}, #{kcduration,jdbcType=VARCHAR}, #{kcintroduce,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.second.entity.Kc">
+    insert into kc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="kcnumber != null">
+        kcNumber,
+      </if>
+      <if test="kcname != null">
+        kcName,
+      </if>
+      <if test="kctype != null">
+        kcType,
+      </if>
+      <if test="kccollege != null">
+        kcCollege,
+      </if>
+      <if test="kcroom != null">
+        kcRoom,
+      </if>
+      <if test="kctimes != null">
+        kcTimes,
+      </if>
+      <if test="kcduration != null">
+        kcDuration,
+      </if>
+      <if test="kcintroduce != null">
+        kcIntroduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="kcnumber != null">
+        #{kcnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="kcname != null">
+        #{kcname,jdbcType=VARCHAR},
+      </if>
+      <if test="kctype != null">
+        #{kctype,jdbcType=VARCHAR},
+      </if>
+      <if test="kccollege != null">
+        #{kccollege,jdbcType=VARCHAR},
+      </if>
+      <if test="kcroom != null">
+        #{kcroom,jdbcType=VARCHAR},
+      </if>
+      <if test="kctimes != null">
+        #{kctimes,jdbcType=VARCHAR},
+      </if>
+      <if test="kcduration != null">
+        #{kcduration,jdbcType=VARCHAR},
+      </if>
+      <if test="kcintroduce != null">
+        #{kcintroduce,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.second.entity.KcExample" resultType="java.lang.Long">
+    select count(*) from kc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update kc
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.kcnumber != null">
+        kcNumber = #{record.kcnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kcname != null">
+        kcName = #{record.kcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kctype != null">
+        kcType = #{record.kctype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kccollege != null">
+        kcCollege = #{record.kccollege,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kcroom != null">
+        kcRoom = #{record.kcroom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kctimes != null">
+        kcTimes = #{record.kctimes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kcduration != null">
+        kcDuration = #{record.kcduration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kcintroduce != null">
+        kcIntroduce = #{record.kcintroduce,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update kc
+    set id = #{record.id,jdbcType=INTEGER},
+      kcNumber = #{record.kcnumber,jdbcType=VARCHAR},
+      kcName = #{record.kcname,jdbcType=VARCHAR},
+      kcType = #{record.kctype,jdbcType=VARCHAR},
+      kcCollege = #{record.kccollege,jdbcType=VARCHAR},
+      kcRoom = #{record.kcroom,jdbcType=VARCHAR},
+      kcTimes = #{record.kctimes,jdbcType=VARCHAR},
+      kcDuration = #{record.kcduration,jdbcType=VARCHAR},
+      kcIntroduce = #{record.kcintroduce,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.second.entity.Kc">
+    update kc
+    <set>
+      <if test="kcnumber != null">
+        kcNumber = #{kcnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="kcname != null">
+        kcName = #{kcname,jdbcType=VARCHAR},
+      </if>
+      <if test="kctype != null">
+        kcType = #{kctype,jdbcType=VARCHAR},
+      </if>
+      <if test="kccollege != null">
+        kcCollege = #{kccollege,jdbcType=VARCHAR},
+      </if>
+      <if test="kcroom != null">
+        kcRoom = #{kcroom,jdbcType=VARCHAR},
+      </if>
+      <if test="kctimes != null">
+        kcTimes = #{kctimes,jdbcType=VARCHAR},
+      </if>
+      <if test="kcduration != null">
+        kcDuration = #{kcduration,jdbcType=VARCHAR},
+      </if>
+      <if test="kcintroduce != null">
+        kcIntroduce = #{kcintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null">
+        isDelete = #{isdelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.second.entity.Kc">
+    update kc
+    set kcNumber = #{kcnumber,jdbcType=VARCHAR},
+      kcName = #{kcname,jdbcType=VARCHAR},
+      kcType = #{kctype,jdbcType=VARCHAR},
+      kcCollege = #{kccollege,jdbcType=VARCHAR},
+      kcRoom = #{kcroom,jdbcType=VARCHAR},
+      kcTimes = #{kctimes,jdbcType=VARCHAR},
+      kcDuration = #{kcduration,jdbcType=VARCHAR},
+      kcIntroduce = #{kcintroduce,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultType="com.example.second.entity.Kc">
+        select * from kc where isdelete = '0'
+    </select>
+  <select id="findKcByName" parameterType="java.lang.String" resultType="com.example.second.entity.Kc">
+        select * from kc where  isdelete = '0' and kcName like #{name,jdbcType=VARCHAR}
+    </select>
+</mapper>
